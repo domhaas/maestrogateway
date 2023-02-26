@@ -1,8 +1,15 @@
-FROM python:3.7-alpine
+ARG BUILD_FROM
+FROM $BUILD_FROM
+
+RUN apk add --no-cache \
+    py3-pip
 
 COPY ./requirements.txt /requirements.txt
 RUN pip3 install -r /requirements.txt && rm requirements.txt
 
 COPY ./*.py ./maestro/
 
-ENTRYPOINT [ "python3", "/maestro/maestro.py" ]
+COPY run.sh /
+RUN chmod a+x /run.sh
+
+CMD [ "/run.sh" ]

@@ -295,6 +295,7 @@ if __name__ == "__main__":
     if systemd_available:
         systemd.daemon.notify('READY=1')
     while True:
+        logger.info(os.environ)
         logger.info("Websocket: Establishing connection to server (IP:"+_MCZip+" PORT:"+_MCZport+")")
         ws = websocket.WebSocketApp("ws://" + _MCZip + ":" + _MCZport,
                                     on_message=on_message,
